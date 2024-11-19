@@ -1,0 +1,34 @@
+class Solution {
+  public:
+    void nextPermutation(vector<int>& arr) {
+        // code here
+        
+        if(arr.size() <= 1) {
+            return; \
+        }
+        int n1 = -1;
+
+        for(int i = arr.size() - 2; i >= 0; i--)
+        {
+           if(arr[i] < arr[i + 1]){
+                n1 = i;
+                break;
+           }
+        }
+
+        if(n1 == -1) {
+            reverse(arr.begin(), arr.end());
+        } 
+        else {
+            int n2 = 0;
+            for(int i = arr.size() - 1; i > n1; i--) {
+                if(arr[i] > arr[n1]) {
+                    n2 = i;
+                    break;
+                }
+            }
+            swap(arr[n1], arr[n2]);
+            reverse(arr.begin() + n1 + 1, arr.end());
+        }
+     }
+};
