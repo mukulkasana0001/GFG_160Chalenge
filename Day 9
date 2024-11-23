@@ -1,0 +1,47 @@
+// Minimize the Heights II
+
+class Solution {
+  public:
+    int getMinDiff(vector<int> &arr, int k) {
+        // code here
+        sort(arr.begin(),arr.end());
+        
+        int n=arr.size();
+        int longB=arr[n-1];
+        int shortB=arr[0];
+        
+        int a=longB-shortB;
+        
+        for(int i=1;i<n;i++){
+            longB=max(arr[n-1]-k,arr[i-1]+k);
+            shortB=min(arr[0]+k,arr[i]-k);
+            if(shortB<0) continue;
+            a=min(a,longB-shortB);
+        }
+        return a;
+    }
+    
+};
+
+// Minimize the Heights I
+
+class Solution {
+  public:
+    int getMinDiff(vector<int> &arr, int k) {
+        // code here
+        sort(arr.begin(),arr.end());
+        
+        int n=arr.size();
+        int longB=arr[n-1];
+        int shortB=arr[0];
+        
+        int a=longB-shortB;
+        
+        for(int i=1;i<n;i++){
+            longB=max(arr[n-1]-k,arr[i-1]+k);
+            shortB=min(arr[0]+k,arr[i]-k);
+            a=min(a,longB-shortB);
+        }
+        return a;
+    }
+};
