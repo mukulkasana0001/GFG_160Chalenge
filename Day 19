@@ -1,0 +1,30 @@
+class Solution {
+  public:
+    int minChar(string& s) {
+        // Write your code here
+        string r=s;
+        reverse(r.begin(),r.end());
+        
+        string t = s+"*"+r;
+        int n=t.size();
+        
+         vector<int>lps(n,0);
+         
+        for(int i=1,len=0;i<n;)
+        {
+            if(t[i]==t[len]){
+               lps[i++]=++len; 
+            } 
+            else if(len){
+                len=lps[len-1];
+            } 
+            else {
+                lps[i++]=0;
+        }
+            
+        }
+        
+        return s.size()-lps[n-1];
+        
+    }
+};
