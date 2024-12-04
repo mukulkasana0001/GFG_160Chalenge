@@ -1,0 +1,59 @@
+class Solution {
+  public:
+    // Function to check if two strings are rotations of each other or not.
+    bool areRotations(string &s1, string &s2) {
+        // Your code here
+    //     int l1=s1.size();
+    //     int l2=s2.size();
+    //     if(l1!=l2){
+    //         return false;
+    //     }
+    //      string temp = s1+s1;
+    //     bool c=true;
+    //     for(int i=0;i<l1;i++){
+    //         c=true;
+    //         for(int j = 0;j<l2;j++){
+    //             if(temp[i+j]!=s2[j]){
+    //                 c=false;
+    //                 break;
+    //             }
+    //         }
+    //         if(c==true)
+    //         {
+    //         return true;
+    //         }
+    //     }
+        
+    //         return false;
+    // }
+    
+    
+    
+    // same as privious 
+    
+     string txt = s1+s1;
+     int k =s2.size();
+     vector<int>lps(k,0),res;;
+        for(int i=1,len=0;i<k;){
+            if(s2[i]==s2[len]) lps[i++]=++len;
+            else if(len) len=lps[len-1];
+            else lps[i++]=0;
+        }
+        
+        for(int i=0,j=0;i<txt.size();){
+            if(txt[i]==s2[j]){
+                i++,j++;
+                if(j==k){
+                    return true;
+                }
+            }
+            else if(j)
+                j=lps[j-1];
+            else
+               i++;
+        }
+        return false;
+     }
+   
+
+};
