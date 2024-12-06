@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    // Function to find hIndex
+    int hIndex(vector<int>& citations) {
+        // code here
+        int s= citations.size();
+        sort(citations.begin(),citations.end());
+        
+        for(int i=0;i<s;i++){
+            
+           int  hi= s - i;
+           
+        if (citations[i] >= hi) {
+          return hi;
+        }
+        }
+        return 0;
+    }
+};
