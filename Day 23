@@ -1,0 +1,81 @@
+class Solution {
+  public:
+    // Function to count inversions in the array.
+    
+    
+     int merge(vector<int> &arr, int left, int mid, int right){
+      
+      vector<int> temp;
+      int i = left, j = mid, count = 0;
+      
+      while (i < mid && j <= right) {
+          
+         if (arr[i] <= arr[j]) {
+            temp.push_back(arr[i++]);
+         } 
+         else {
+            temp.push_back(arr[j++]);
+            count += mid - i; 
+         }
+        
+       }
+       
+       while (i < mid){
+           temp.push_back(arr[i++]);
+           
+       }
+       
+       while (j <= right){
+           temp.push_back(arr[j++]);
+       }
+       
+         for (int k = left; k <= right; k++){
+             arr[k] = temp[k - left];
+         }
+       
+        return count;
+      }  
+    
+    
+      int mergeSort(vector<int> &arr, int left, int right){
+          
+       if (left >= right) return 0;
+       
+       int mid = left + (right - left) / 2;
+       int count = 0;
+
+        count += mergeSort(arr, left, mid);
+        count += mergeSort(arr, mid + 1, right);
+        count += merge(arr, left, mid + 1, right);
+        
+        return count;
+      } 
+      
+      
+    int inversionCount(vector<int> &arr) {
+        // Your Code Here
+
+        // time complexcity exceded.
+        //  int a=0;
+        // for(int i=0;i<arr.size();i++){
+            
+        //     for(int j=i+1;j<arr.size();j++){
+        //         if(arr[i]>arr[j]){
+        //             a++;
+        //         }
+               
+        //     }
+        // }
+        
+        // return a;
+        
+        
+        
+        
+        //new aproch 
+      return mergeSort(arr, 0, arr.size() - 1);
+        
+        
+    }
+    
+};
