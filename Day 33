@@ -1,0 +1,37 @@
+class Solution {
+  public:
+  
+   bool placed(vector<int> &st,int k,int m,int n){
+       int c=1,pre=st[0];
+       for(int i=1;i<n;i++){
+           if(st[i]-pre>=m){
+               c++;
+               pre =st[i];
+           }
+       }
+      return c>=k;
+   }
+
+    int aggressiveCows(vector<int> &stalls, int k) {
+
+        // Write your code here
+        sort(stalls.begin(),stalls.end());
+        int n=stalls.size();
+        int l=0;
+       int  h=stalls[n-1]-stalls[0];
+       int mid, a=0;
+       
+        while(l<=h){
+            mid=(l+h)/2;
+            if(placed(stalls,k,mid,n)){
+                a=max(a,mid);
+                l=mid+1;
+            }
+            else{
+                h=mid-1;
+            }
+        }
+        return a;
+        
+    }
+};
