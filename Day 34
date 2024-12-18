@@ -1,0 +1,44 @@
+class Solution {
+  public:
+  
+     bool check(vector<int> &arr,int k, int mid){
+         int sum=0,t=1;
+         for(int x:arr){
+             sum+=x;
+             if(sum>mid){
+                 t++;
+                 sum=x;
+             }
+         }
+         return t<=k;
+     }
+     
+    int findPages(vector<int> &arr, int k) {
+        // code here
+        if(k>arr.size()){
+            return -1;
+        }
+        
+        int s=0,m=INT_MIN;
+        
+        for(int x:arr){
+            s=s+x;
+            m=max(m,x);
+        }
+        
+        int l=m,h=s,mid,ans=INT_MAX;
+        
+        while(l<=h){
+            mid = (l+h)/2;
+            
+            if(check(arr,k,mid)){
+                ans = min(ans,mid);
+                h=mid-1;
+            }
+            else{
+                l=mid+1;
+            }
+        }
+        return ans;
+    }
+};
