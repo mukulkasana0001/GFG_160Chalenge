@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    bool matSearch(vector<vector<int>> &mat, int x) {
+        // your code here
+        int ro=mat.size();
+        int co=mat[0].size();
+        int right=co-1;
+        int left = 0;
+        while(left<ro&&right>=0){
+            if(mat[left][right]==x){
+                return true;
+            }
+           if(mat[left][right]>x){
+               right--;
+           }
+           else{
+               left++;
+           }
+            
+        }
+        return false;
+    }
+    
+    // [[3, 30, 38],[20, 52, 54],[35, 60, 69]]
+};
