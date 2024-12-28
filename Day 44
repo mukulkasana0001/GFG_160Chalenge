@@ -1,0 +1,49 @@
+class Solution {
+  public:
+    vector<vector<int>> findTriplets(vector<int> &arr) {
+        // Code here
+        
+        // vector<vector<int>> ans;
+       
+        // int n = arr.size();
+        // for(int i=0; i<n; i++){
+        //     int a = arr[i];
+        //     for(int j=i+1; j<n; j++){
+        //         int b = arr[j];
+        //         for(int k=j+1; k<n; k++){
+        //             int c  = arr[k];
+        //             if(a+b+c == 0){
+        //                 ans.push_back({i, j, k});
+        //             }
+        //         }
+        //     }
+        // }
+        // return ans;
+        
+        
+        
+        
+        map<int,vector<int>> mp;
+        for(int i=0;i<arr.size();i++){
+            mp[arr[i]].push_back(i);
+        }
+        
+        vector<vector<int>> ans;
+        for(int i=0;i<arr.size();i++){
+            for(int j=i+1;j<arr.size();j++)
+            {
+               int tf = - ( arr[i]+arr[j] );
+                if(mp.find(tf) != mp.end()){
+                    for(int k:mp[tf])
+                    {
+                        if(j<k){
+                         ans.push_back({i,j,k});
+                        }
+                    }
+               }
+            }
+        }
+        
+        return ans;
+    }
+};
