@@ -1,0 +1,24 @@
+class Solution {
+  public:
+    vector<int> intersectionWithDuplicates(vector<int>& a, vector<int>& b) {
+        // code here
+        unordered_map<int,int> mp;
+        vector<int> ans;
+        
+        for(int i=0;i<a.size();i++){
+              mp[a[i]]=0;
+        }
+        
+        
+    //   sort(b.begin(),b.end());
+      
+    for(int i=0;i<b.size();i++){
+            if(mp.find(b[i]) != mp.end() && find(ans.begin(), ans.end(), b[i]) == ans.end()){
+                ans.push_back(b[i]); 
+                }
+        }
+        
+        
+    return ans;
+    }
+};
