@@ -1,0 +1,35 @@
+class Solution {
+  public:
+    int countTriplets(vector<int> &arr, int target) {
+        // Code Here
+        
+       
+        int c=0;
+        int n=arr.size();
+         
+        for(int i=0;i<n-2;i++){
+
+           int j=i+1,k=n-1;
+           while(j<k){
+               int s=arr[i]+arr[j]+arr[k];
+               if(s>target){
+                   k--;
+               }
+               else if(s<target){
+                   j++;
+               }
+               else if(s==target){
+                   c++;
+                   int t=j+1;
+                  
+                  while(t<k&& arr[t]==arr[t-1]){
+                      c++;
+                      t++;
+                  }
+                  k--;
+               }
+           }
+        }
+        return c;
+    }
+};
