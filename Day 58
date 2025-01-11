@@ -1,0 +1,24 @@
+class Solution {
+  public:
+    int longestUniqueSubstr(string &s) {
+        // code here
+        int m=0;
+        int l=0,r=0;
+        vector<bool>vr(26,false);
+       while(r<s.size()){
+           while(vr[s[r]-'a']==true){
+               vr[s[l]-'a']=false;
+               l++;
+           }
+           
+           vr[s[r]-'a']=true;
+            m=max(m,r-l+1);
+           r++;
+       }
+        
+          
+
+        
+        return m;
+    }
+};
