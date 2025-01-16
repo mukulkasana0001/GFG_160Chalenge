@@ -1,0 +1,26 @@
+class Solution {
+  public:
+    int maxLen(vector<int> &arr) {
+        // Your code here
+        
+        unordered_map<int,int> mp;
+        
+        int s=0,mxl=0,k=0;
+        
+        for(int i=0;i<arr.size();i++){
+            s+=arr[i]==0?-1:1;
+            if(s==k){
+                mxl=max(mxl,i+1);
+            }
+            
+            if(mp.find(s-k)!=mp.end()){
+                mxl=max(mxl,i-mp[s-k]);
+            }
+            
+            if(mp.find(s)==mp.end()){
+                mp[s]=i;
+            }
+        }
+        return mxl;
+    }
+};
