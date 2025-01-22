@@ -1,0 +1,52 @@
+class Solution {
+  public:
+    
+    Node* reverseList(struct Node* head){
+        Node* curr =head;
+        Node* pre =NULL;
+        Node* next=NULL;
+        
+        while(curr!=NULL){
+            next=curr->next;
+            curr->next=pre;
+            pre=curr;
+            curr= next;
+        }
+        return pre;
+    }
+  
+    Node* addTwoLists(Node* num1, Node* num2) {
+        // code here
+        
+     num1=reverseList(num1);
+     num2=reverseList(num2);
+     int carr=0;
+     Node* ans = new Node(0);
+     Node* first=ans;
+     
+     while(num1!=NULL||num2!=NULL||carr!=NULL){
+         int sum = carr;
+         if(num1!=NULL){
+             sum+=num1->data;
+             num1=num1->next;
+         }
+         if(num2!=NULL){
+             sum+=num2->data;
+             num2=num2->next;
+         }
+         ans->data=sum%10;
+         carr=sum/10;
+         if(num1!=NULL||num2!=NULL||carr!=NULL){
+             ans->next=new Node(0);
+             ans=ans->next;
+         }
+     }
+     
+     reverseList(first);
+     while(ans->data==0 && ans->next){
+         ans=ans->next;
+     }
+     
+     return ans;
+    }
+};
