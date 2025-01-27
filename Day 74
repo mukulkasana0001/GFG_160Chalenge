@@ -1,0 +1,45 @@
+class LRUCache {
+  private:
+    int capacity;
+    std::list<std::pair<int, int>> cacheList;
+    std::unordered_map<int,std::list<std::pair<int,int>>::iterator> cacheMap;
+    
+  public:
+    // Constructor for initializing the cache capacity with the given value.
+    
+    LRUCache(int cap): capacity(cap){} 
+    
+
+    // Function to return value corresponding to the key.
+    int get(int key) {
+        // your code here
+        auto it= cacheMap.find(key);
+        if(it==cacheMap.end()){
+            return -1;
+        }
+        
+        cacheList.splice(cacheList.begin(),cacheList,it->second);
+        
+        return it->second->second;
+    }
+
+    // Function for storing key-value pair.
+    void put(int key, int value) {
+        // your code here
+        auto it=cacheMap.find(key);
+        if(it!=cacheMap.end()){
+            cacheList.splice(cacheList.begin(),cacheList,it->second);
+           it->second->second=value;
+           return ;
+        }
+        
+        if(cacheMap.size()==capacity){
+            int lruKey = cacheList.back().first;
+            cacheMap.erase(lruKey);
+            cacheList.pop_back();
+        }
+        
+        cacheList.emplace_front(key,value);
+        cacheMap[key]=cacheList.begin();
+    }
+};
