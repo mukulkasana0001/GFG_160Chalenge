@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    double power(double b, int e) {
+        // code here
+      if(e<0){
+          return 1 / power(b, -e);
+      }
+      if(e==1){
+          return b;
+      }
+      if(e==0){
+          return 1;
+      }
+      double hp = power(b, e/2);
+      
+      if(e%2==0){
+          return hp*hp;
+      }
+     else{
+         return b*hp*hp;
+     }  
+    }
+};
