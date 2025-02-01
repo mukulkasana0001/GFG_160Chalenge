@@ -1,0 +1,44 @@
+class Solution {
+  public:
+   
+   bool checkWord(vector<vector<char>>& mat,string& word,int r,int c,int i,vector<vector<int>>& mat2){
+       int n=mat.size();
+       int m=mat[0].size();
+       
+       if(i==word.size()){
+           return true;
+       }
+       
+       if(r<0 || c<0 || r>=n || c>=m || mat[r][c]!=word[i] || mat2[r][c]==1){
+           return false;
+       }
+       
+       mat2[r][c]=1;
+       
+       bool check =checkWord(mat,word,r+1,c,i+1,mat2) ||checkWord(mat,word,r-1,c,i+1,mat2)||checkWord(mat,word,r,c+1,i+1,mat2)||checkWord(mat,word,r,c-1,i+1,mat2);   
+       
+       
+       mat2[r][c]=0;
+       
+       return check;
+   }
+  
+  
+    bool isWordExist(vector<vector<char>>& mat, string& word) {
+        // Code here
+        int n=mat.size();
+        int m=mat[0].size();
+        vector<vector<int>> mat2(n,vector<int>(m,0));
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==word[0]){
+                 if(checkWord(mat,word,i,j,0,mat2)){
+                     return true;
+                 } 
+                }
+            }
+        }
+        return false;
+    }
+};
