@@ -1,0 +1,27 @@
+class Solution {
+  public:
+    vector<vector<int>> levelOrder(Node *root) {
+        // Your code here
+         vector<vector<int>> ans;
+         
+         queue<Node*>que;
+         
+         que.push(root);
+         while(!que.empty()){
+             vector<int>temp;
+             Node* curr=que.front();
+             que.pop();
+             if(curr->left!=NULL){
+                 que.push(curr->left);
+             }
+             if(curr->right!=NULL){
+                 que.push(curr->right);
+             }
+             
+             temp.push_back(curr->data);
+             ans.push_back(temp);
+         }
+         
+        return ans;
+    }
+};
