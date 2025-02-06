@@ -1,0 +1,30 @@
+class Solution {
+  public:
+    // Function to build the tree from given inorder and preorder traversals
+    unordered_map<int,int> mp;
+    Node *solve(vector<int> &inorder, vector<int> &preorder,int s,int end,int &preindex){
+        if(s>end){
+            return NULL;
+        }
+        
+        int val=preorder[preindex];
+        Node* root= new Node(preorder[preindex++]);
+        
+        root->left=solve(inorder,preorder,s,mp[val]-1,preindex);
+        root->right=solve(inorder,preorder,mp[val]+1,end,preindex);
+        
+        return root;
+    }
+    
+    
+    Node *buildTree(vector<int> &inorder, vector<int> &preorder) {
+        // code here
+        
+        for(int i=0;i<inorder.size();i++){
+            mp[inorder[i]]=i;
+        }
+        
+        int preindex=0;
+        return solve(inorder,preorder,0,inorder.size()-1,preindex);
+    }
+};
