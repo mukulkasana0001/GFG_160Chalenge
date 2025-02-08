@@ -1,0 +1,73 @@
+class Solution {
+  public:
+    void LeafBond(vector<int> &a,Node *root){
+         if(root==NULL){
+            return ;
+        }
+        
+        LeafBond(a,root->left);
+        
+        if(root->left==NULL && root->right==NULL){
+            a.push_back(root->data);
+        }
+        
+        LeafBond(a,root->right);
+    }
+    
+    void LeftBond(vector<int> &a,Node *root){
+       
+       Node*temp=root;
+       while(temp!=NULL){
+           if(temp->right!=NULL || temp->left!=NULL){
+           a.push_back(temp->data);
+         }
+         temp= (temp->left) ? temp->left : temp->right; 
+       }
+     }
+    
+    
+    void RightBond(vector<int> &b,Node *root){
+        Node *temp=root;
+        vector<int> t;
+        while(temp!=NULL){
+             if(temp->left!=NULL  || temp->right!=NULL){
+               t.push_back(temp->data);
+               }
+               temp= (temp->right) ? temp->right : temp->left;
+        }
+       reverse(t.begin(),t.end());
+       b.insert(b.end(),t.begin(),t.end());
+       
+    }
+    
+    vector<int> boundaryTraversal(Node *root) {
+        // code here
+        vector<int> a;
+        
+        if(root==NULL){
+            return a;
+        }
+        a.push_back(root->data);
+        
+        
+           LeftBond(a,root->left);
+           
+       if(root->left!=NULL || root->right){
+        LeafBond(a,root);
+       }
+       
+        vector<int> b;
+        
+    if(root->right!=NULL){
+        RightBond(b,root->right);  
+      }
+      
+        // for(int i=b.size()-1;i>=0;i--){
+        //     a.push_back(b[i]);
+        // }
+        
+        a.insert(a.end(),b.begin(),b.end());
+        
+        return a;
+    }
+};
