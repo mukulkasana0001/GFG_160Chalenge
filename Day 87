@@ -1,0 +1,34 @@
+class Solution {
+  public:
+    // Function to return maximum path sum from any node in a tree.
+    
+    int solve(Node *root,int &sum){
+        if(root==NULL){
+            return 0;
+        }
+        
+        int ls= solve(root->left,sum);
+        int rs= solve(root->right,sum);
+        
+        if(ls>0 && rs >0){
+            sum= max(sum,root->data+ ls+rs);
+        }
+        else if(ls<0 && rs<0){
+            sum = max(sum, root->data);
+        }
+        else{
+            sum = max(sum,root->data + max(ls,rs));
+        }
+        
+        return max(0,root->data + max(ls,rs));
+    }
+    
+    int findMaxSum(Node *root) {
+        // code here
+        int sum=INT_MIN;
+        solve(root,sum);
+        return sum;
+        
+        
+    }
+};
