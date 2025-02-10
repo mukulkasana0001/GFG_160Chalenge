@@ -1,0 +1,35 @@
+class Solution {
+  public:
+  
+    void solve(Node *root, int k,int cs, int &c,unordered_map<int,int> &mp){
+        if(root==NULL){
+            return ;
+        }
+        
+        cs+= root->data;
+        
+        if(cs==k){
+        c++;
+        }
+        
+        if(mp.find(cs-k)!=mp.end()){
+            c+=mp[cs-k];
+        }
+        
+        mp[cs]++;
+        
+        solve(root->left,k,cs,c,mp);
+        solve(root->right,k,cs,c,mp);
+        
+        mp[cs]--;
+        
+    }
+    int sumK(Node *root, int k) {
+        // code here
+        
+       unordered_map<int,int> mp;
+       int c=0;
+       solve(root,k,0,c,mp);
+       return c;
+    }
+};
