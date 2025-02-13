@@ -1,0 +1,32 @@
+class Solution {
+  public:
+  
+   void solve(Node* root,Node* &prev,Node* &first,Node* &last){
+      if(root==NULL){
+          return ;
+      }
+      
+      solve(root->left,prev,first,last);
+      
+      if(prev!=NULL){
+          if(prev->data>root->data){
+              if(first==NULL){
+                  first=prev;
+              }
+               last=root;
+          }
+      }
+      prev=root;
+      solve(root->right,prev,first,last);
+  }
+  
+    void correctBST(Node* root) {
+        // add code here.
+        Node* prev=NULL;
+        Node* first=NULL;
+        Node* last=NULL;
+        solve(root,prev,first,last);
+        swap(first->data,last->data);
+        
+    }
+};
