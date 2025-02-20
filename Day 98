@@ -1,0 +1,32 @@
+class Solution {
+  public:
+    vector<double> getMedian(vector<int> &arr) {
+        // code here
+        priority_queue<int> lm;
+        priority_queue<int,vector<int>,greater<int>>rm;
+        
+        vector<double> a;
+        for(int i=0;i<arr.size();i++){
+            lm.push(arr[i]);
+            int el= lm.top();
+            rm.push(el);
+            lm.pop();
+            
+            if(rm.size()>lm.size()){
+                int el= rm.top();
+                lm.push(el);
+                rm.pop();
+            }
+            double med;
+            if(lm.size()!=rm.size()){
+                med=lm.top();
+            }
+            else{
+                med =(double)(lm.top()+rm.top())/2;
+                
+            }
+            a.push_back(med);
+        }
+        return a;
+    }
+};
